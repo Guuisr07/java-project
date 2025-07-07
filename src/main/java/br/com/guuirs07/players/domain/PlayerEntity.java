@@ -40,4 +40,4 @@ public class PlayerEntity {
         return Period.between(birthDate, LocalDate.now()).getYears();
     }
 
-};
+}

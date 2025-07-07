@@ -4,7 +4,7 @@
 
 <!-- Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context. List any dependencies that are required for this change. -->
 
-Issue [CLICK_UP_TASK_ID](CLICK_UP_TASK_LINK)
+Issue []()
 
 ## Type of change
 
