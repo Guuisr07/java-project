@@ -1,6 +1,8 @@
 package br.com.guuirs07.players.domain;
 
 import lombok.Getter;
+import lombok.NonNull;
+import org.apache.commons.lang3.StringUtils;
 
 @Getter
 public enum PlayerPosition {
@@ -22,5 +24,7 @@ public enum PlayerPosition {
         this.description = description;
     }
 
-
+    public static PlayerPosition fromString(@NonNull String description) {
+        return PlayerPosition.valueOf(description.toUpperCase());
+    }
 }

@@ -1,18 +1,19 @@
 package br.com.guuirs07.players.domain;
 
+import br.com.guuirs07.players.dto.PlayerRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Optional;
 
 @Entity
 @Table(name = "Players")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-
 public class PlayerEntity {
 
     @Id
@@ -35,9 +36,30 @@ public class PlayerEntity {
     @Column(nullable = false)
     private LocalDate birthDate;
 
+    @Builder
+    protected PlayerEntity(@NonNull String name, @NonNull String nationality,
+                        String position, BigDecimal marketValue,
+                        LocalDate birthDate) {
+        this.name = name;
+        this.nationality = nationality;
+        this.marketValue = marketValue;
+        this.birthDate = birthDate;
+        this.position = Optional.ofNullable(position)
+                .map(PlayerPosition::fromString)
+                .orElseThrow(() -> new IllegalArgumentException("Position não pode ser nulo"));
+    }
+
+    @Builder(builderClassName = "fromPlayerRequestDTO", builderMethodName = "fromPlayerRequestDTOBuilder")
+    protected PlayerEntity(PlayerRequestDTO dto) {
+        this.name = dto.getName();
+        this.birthDate = dto.getBirthDate();
+        this.nationality = dto.getNationality();
+        this.position = PlayerPosition.valueOf(dto.getPosition());
+        this.marketValue = dto.getMarketValue();
+    }
+
     public int getAge() {
         if (birthDate == null) return 0;
         return Period.between(birthDate, LocalDate.now()).getYears();
     }
-
 }

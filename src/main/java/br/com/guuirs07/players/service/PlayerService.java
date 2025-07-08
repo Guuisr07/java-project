@@ -29,14 +29,7 @@ public class PlayerService {
     }
 
     private PlayerResponseDTO toResponseDTO(PlayerEntity entity) {
-        PlayerResponseDTO dto = new PlayerResponseDTO();
-        dto.setId(entity.getId());
-        dto.setName(entity.getName());
-        dto.setBirthDate(entity.getBirthDate());
-        dto.setNationality(entity.getNationality());
-        dto.setMarketValue(entity.getMarketValue());
-        dto.setPosition(entity.getPosition().name());
-        dto.setAge(entity.getAge());
+        PlayerResponseDTO dto = new PlayerResponseDTO(entity);
         return dto;
     }
 
@@ -56,7 +49,15 @@ public class PlayerService {
 
     @Transactional
     public PlayerResponseDTO createPlayer(PlayerRequestDTO dto) {
-        PlayerEntity entity = toEntity(dto);
+        PlayerEntity entity = PlayerEntity.builder()
+                .name(dto.getName())
+                .position(dto.getPosition())
+                .birthDate(dto.getBirthDate())
+                .marketValue(dto.getMarketValue())
+                .nationality(dto.getNationality())
+                .build();
+
+        PlayerEntity formDto = PlayerEntity.fromPlayerRequestDTOBuilder().dto(dto).build();
         PlayerEntity saved = playerRepository.save(entity);
         return toResponseDTO(saved);
     }

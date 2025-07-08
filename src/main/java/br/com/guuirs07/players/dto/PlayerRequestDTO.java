@@ -1,5 +1,7 @@
 package br.com.guuirs07.players.dto;
 
+import br.com.guuirs07.players.domain.PlayerEntity;
+import br.com.guuirs07.players.domain.PlayerPosition;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
