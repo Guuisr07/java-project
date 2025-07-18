@@ -4,12 +4,14 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Builder
 public class PlayerRequestDTO {
 
     @NotBlank
