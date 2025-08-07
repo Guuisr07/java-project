@@ -29,15 +29,15 @@ public class PlayerService {
     }
 
     private PlayerResponseDTO toResponseDTO(PlayerEntity entity) {
-        PlayerResponseDTO dto = new PlayerResponseDTO();
-        dto.setId(entity.getId());
-        dto.setName(entity.getName());
-        dto.setBirthDate(entity.getBirthDate());
-        dto.setNationality(entity.getNationality());
-        dto.setMarketValue(entity.getMarketValue());
-        dto.setPosition(entity.getPosition().name());
-        dto.setAge(entity.getAge());
-        return dto;
+        return PlayerResponseDTO.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .position(entity.getPosition().name())
+                .marketValue(entity.getMarketValue())
+                .nationality(entity.getNationality())
+                .birthDate(entity.getBirthDate())
+                .age(entity.getAge())
+                .build();
     }
 
     @Transactional(readOnly = true)
